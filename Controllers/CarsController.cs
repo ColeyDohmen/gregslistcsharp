@@ -81,6 +81,30 @@ namespace gregslistcsharp.Controllers
             }
         }
 
+        [HttpPut("{carId}")]
+        public ActionResult<string> EditCar(string carId, Car otherCar)
+        {
+            try
+            {
+                Car updatedCar = FakeDB.Cars.Find(c => c.Id == carId);
+                if (updatedCar == null)
+                {
+                    throw new System.Exception("Car does not exist");
+                }
+                updatedCar.Make = otherCar.Make;
+                updatedCar.Model = otherCar.Model;
+                updatedCar.Year = otherCar.Year;
+                updatedCar.Color = otherCar.Color;
+
+                return Ok(updatedCar);
+            }
+            catch (System.Exception err)
+            {
+
+                return BadRequest(err.Message);
+            }
+        }
+
     }
 
 }
