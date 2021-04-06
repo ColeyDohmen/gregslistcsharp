@@ -9,14 +9,14 @@ namespace gregslistcsharp.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class CarsController : ControllerBase
+    public class HousesController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<IEnumerable<Car>> Get()
+        public ActionResult<IEnumerable<House>> Get()
         {
             try
             {
-                return Ok(FakeDB.Cars);
+                return Ok(FakeDB.Houses);
             }
             catch (System.Exception err)
             {
@@ -26,12 +26,12 @@ namespace gregslistcsharp.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Car> Create([FromBody] Car newCar)
+        public ActionResult<House> Create([FromBody] House newHouse)
         {
             try
             {
-                FakeDB.Cars.Add(newCar);
-                return Ok(newCar);
+                FakeDB.Houses.Add(newHouse);
+                return Ok(newHouse);
             }
             catch (System.Exception err)
             {
@@ -40,17 +40,17 @@ namespace gregslistcsharp.Controllers
             }
         }
 
-        [HttpGet("{carId}")]
-        public ActionResult<Car> GetCar(string carId)
+        [HttpGet("{houseId}")]
+        public ActionResult<House> GetHouse(string houseId)
         {
             try
             {
-                Car carFound = FakeDB.Cars.Find(c => c.Id == carId);
-                if (carFound == null)
+                House houseFound = FakeDB.Houses.Find(c => c.Id == houseId);
+                if (houseFound == null)
                 {
-                    throw new System.Exception("Car does not exist");
+                    throw new System.Exception("House does not exist");
                 }
-                return Ok(carFound);
+                return Ok(houseFound);
             }
             catch (System.Exception err)
             {
@@ -59,19 +59,19 @@ namespace gregslistcsharp.Controllers
             }
         }
 
-        [HttpDelete("{carId}")]
-        public ActionResult<string> DeleteCar(string carId)
+        [HttpDelete("{houseId}")]
+        public ActionResult<string> DeleteHouse(string houseId)
         {
             try
             {
-                Car carToDelete = FakeDB.Cars.Find(c => c.Id == carId);
-                if (FakeDB.Cars.Remove(carToDelete))
+                House houseToDelete = FakeDB.Houses.Find(c => c.Id == houseId);
+                if (FakeDB.Houses.Remove(houseToDelete))
                 {
-                    return Ok("Car Removed");
+                    return Ok("House Removed");
                 }
                 else
                 {
-                    throw new System.Exception("This car does not exist yo.");
+                    throw new System.Exception("This house does not exist yo.");
                 }
             }
             catch (System.Exception err)
